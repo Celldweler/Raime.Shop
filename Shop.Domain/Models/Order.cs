@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.Models
 {
-    public class Product
+    public class Order
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Value { get; set; }
+        public string OrderRef { get; set; }
+        public string Adress1 { get; set; }
+        public string Adress2 { get; set; }
+        public string City { get; set; }
+        public string PostCode { get; set; }
 
-        public IEnumerable<Stock> Stock { get; set; }
         public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

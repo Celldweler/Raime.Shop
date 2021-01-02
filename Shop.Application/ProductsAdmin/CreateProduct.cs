@@ -5,18 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Application.CreateProducts 
+namespace Shop.Application.ProductsAdmin
 {
-    public class CreatePropuct
+    public class CreateProduct
     {
         private ApplicationDbContext _context;
 
-        public CreatePropuct(ApplicationDbContext context)
+        public CreateProduct(ApplicationDbContext context)
         {
             _context = context;
         }
-
-
         public async Task Do(ProductViewModel vm)
         {
             _context.Products.Add(new Domain.Models.Product
@@ -28,12 +26,14 @@ namespace Shop.Application.CreateProducts
 
             await _context.SaveChangesAsync();
         }
+
+
+        public class ProductViewModel
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public decimal Value { get; set; }
+        }
     }
-    
-    public class ProductViewModel
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Value { get; set; }
-    }
+
 }

@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Shop.Application.CreateProducts;
-using Shop.Application.GetProducts;
+using Shop.Application.Products;
 using Shop.Database;
 
 namespace Shop.UI.Pages
@@ -16,21 +15,12 @@ namespace Shop.UI.Pages
         {
             _ctx = ctx;
         }
-
-        [BindProperty]
-        public Shop.Application.CreateProducts.ProductViewModel Product { get; set; }
-        
-        public IEnumerable<Shop.Application.GetProducts.ProductViewModel> Products { get; set; }
+               
+        public IEnumerable<GetPropucts.ProductViewModel> Products { get; set; }
 
         public void OnGet()
         {
             Products = new GetPropucts(_ctx).Do();
-        }
-        public async Task<IActionResult> OnPost()
-        {
-            await new  CreatePropuct(_ctx).Do(Product);
-
-            return RedirectToPage("Index");
-        }
+        }        
     }
 }

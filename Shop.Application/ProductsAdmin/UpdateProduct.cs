@@ -15,14 +15,38 @@ namespace Shop.Application.ProductsAdmin
         {
             _ctx = ctx;
         }
-        public async Task Do(ProductViewModel vm)
-        {           
+        public async Task<Responce> Do(Request request)
+        {
+            var product = _ctx.Products.FirstOrDefault(x => x.Id == request.Id);
+
+            product.Id = request.Id;
+            product.Name = request.Name;
+            product.Description = request.Description;
+            product.Value = request.Value;
 
             await _ctx.SaveChangesAsync();
+            return new Responce
+            {
+                Id= product.Id,
+                Name =product.Name,
+                Description=product.Description,
+                Value=product.Value,
+            };
         }
 
-        public class ProductViewModel
+        public class Request
         {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public decimal Value { get; set; }
+        }
+
+        public class Responce
+        {
+            public int Id { get; set; }
+
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Value { get; set; }

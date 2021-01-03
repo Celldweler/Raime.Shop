@@ -1,4 +1,5 @@
 ﻿using Shop.Database;
+using Shop.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,21 +16,39 @@ namespace Shop.Application.ProductsAdmin
         {
             _context = context;
         }
-        public async Task Do(ProductViewModel vm)
+        public async Task<Responce> Do(Request request)
         {
-            _context.Products.Add(new Domain.Models.Product
+            var product = new Product
             {
-                Name = vm.Name,
-                Description = vm.Description,
-                Value = vm.Value,
-            });
+                Name = request.Name,
+                Description = request.Description,
+                Value = request.Value,
+            };
+            _context.Products.Add(product);
 
             await _context.SaveChangesAsync();
+
+            return new Responce
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Value = product.Value,
+            };
         }
 
 
-        public class ProductViewModel
+        public class Request
         {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public decimal Value { get; set; }
+        }
+
+        public class Responce
+        {
+            public int Id { get; set; }
+
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Value { get; set; }

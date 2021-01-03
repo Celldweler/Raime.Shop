@@ -65,7 +65,12 @@ namespace Shop.UI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Admin}/{action=products}");                
             });
+        
+
         }
     }
 }
